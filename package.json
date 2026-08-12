@@ -1,0 +1,83 @@
+{
+  "name": "pterodactyl-control",
+  "version": "1.0.0",
+  "description": "Secure remote control centre for Pterodactyl Panel servers.",
+  "author": "NekoSuneVR",
+  "desktopName": "PteroControl",
+  "private": true,
+  "type": "module",
+  "main": "desktop/main.cjs",
+  "bin": {
+    "pteroctl": "./dist-server/cli.js"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n API,WEB -c cyan,magenta \"npm:dev:server\" \"npm:dev:web\"",
+    "dev:server": "tsx watch server/index.ts",
+    "dev:web": "vite",
+    "build": "tsc -b && vite build",
+    "start": "node dist-server/index.js",
+    "cli": "tsx server/cli.ts",
+    "desktop": "npm run build && electron .",
+    "desktop:dist": "npm run build && electron-builder",
+    "desktop:portable": "npm run build && electron-builder --win portable --config.win.artifactName=PteroControl-${version}-${arch}-portable.${ext}",
+    "test": "vitest run",
+    "check": "tsc -b --pretty false"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.6.1",
+    "express": "^5.2.1",
+    "lucide-react": "^0.468.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.9",
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@types/supertest": "^6.0.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "concurrently": "^9.2.1",
+    "electron": "^43.4.0",
+    "electron-builder": "^26.15.3",
+    "supertest": "^7.1.4",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.4",
+    "vitest": "^4.0.15"
+  },
+  "build": {
+    "appId": "com.nekosunevr.pterocontrol",
+    "productName": "PteroControl",
+    "icon": "build/icon.png",
+    "asar": true,
+    "files": [
+      "desktop/**/*",
+      "build/icon.png",
+      "dist/**/*",
+      "dist-server/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": ["nsis"],
+      "artifactName": "PteroControl-${version}-${arch}.${ext}"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Utility",
+      "syncDesktopName": true,
+      "artifactName": "PteroControl-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
