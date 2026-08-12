@@ -2,7 +2,19 @@
   "name": "pterodactyl-control",
   "version": "1.0.0",
   "description": "Secure remote control centre for Pterodactyl Panel servers.",
-  "author": "NekoSuneVR",
+  "author": {
+    "name": "NekoSuneVR",
+    "email": "18028479+NekoSuneVR@users.noreply.github.com",
+    "url": "https://github.com/NekoSuneVR"
+  },
+  "homepage": "https://github.com/NekoSuneProjects/PtderactylControl#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NekoSuneProjects/PtderactylControl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NekoSuneProjects/PtderactylControl/issues"
+  },
   "desktopName": "PteroControl",
   "private": true,
   "type": "module",
@@ -18,8 +30,8 @@
     "start": "node dist-server/index.js",
     "cli": "tsx server/cli.ts",
     "desktop": "npm run build && electron .",
-    "desktop:dist": "npm run build && electron-builder",
-    "desktop:portable": "npm run build && electron-builder --win portable --config.win.artifactName=PteroControl-${version}-${arch}-portable.${ext}",
+    "desktop:dist": "npm run build && electron-builder --publish never",
+    "desktop:portable": "npm run build && electron-builder --win portable --publish never --config.win.artifactName=PteroControl-${version}-${arch}-portable.${ext}",
     "test": "vitest run",
     "check": "tsc -b --pretty false"
   },
