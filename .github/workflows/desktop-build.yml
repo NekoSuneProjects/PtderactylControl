@@ -17,7 +17,7 @@ jobs:
         include:
           - os: windows-latest
             artifact: PteroControl-Windows
-          - os: ubuntu-latest
+          - os: [self-hosted, Linux, docker, buildx]
             artifact: PteroControl-Linux
     runs-on: ${{ matrix.os }}
     steps:
